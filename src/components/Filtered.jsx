@@ -1,25 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import IncidentTable from "./IncidentTable";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { IncidentContext } from "../providers/IncidentProvider";
 
 const Filtered = () => {
-  const [filteredIncidents, setFilteredIncidents] = useState(null);
   const { incidentFilterType } = useParams();
-
+  const { filteredIncidents, getFilteredIncidents } = useContext(
+    IncidentContext
+  );
   useEffect(() => {
-    async function getFilteredIncidents() {
-      const response = await fetch(
-        `https://servicenow-ui-coding-challenge-api.netlify.app/.netlify/functions/server/incidentsByState?state=${incidentFilterType}`
-      );
-      const incidents = await response.json();
-      setFilteredIncidents(incidents);
+    if (incidentFilterType) {
+      getFilteredIncidents(incidentFilterType);
     }
-    if (!filteredIncidents) {
-      getFilteredIncidents();
-    }
-  }, [filteredIncidents, incidentFilterType]);
-  if (!filteredIncidents) {
+  }, [getFilteredIncidents, incidentFilterType]);
+  if (!filteredIncidents || filteredIncidents.length === 0) {
     return <p>loading...</p>;
   }
   return (

@@ -1,6 +1,7 @@
 import React from "react";
 import All from "./components/All";
 import Filtered from "./components/Filtered";
+import Incident from "./components/Incident";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
@@ -9,7 +10,7 @@ function App() {
     <div className="AppContainer">
       <Router>
         <Switch>
-          <Route path="/:incidentFilterType">
+          <Route path="/state/:incidentFilterType">
             <Filtered />
           </Route>
           <Route path="/">

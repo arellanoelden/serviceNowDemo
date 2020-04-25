@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const IncidentCard = ({ label, count }) => {
   return (
-    <Link to={`/${label}`}>
+    <Link to={`/state/${label}`}>
       <div className="incidentCard">
         <label htmlFor={label}>{label}</label>
         <p name={label}>{count}</p>
