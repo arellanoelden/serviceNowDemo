@@ -1,3 +1,8 @@
 .AppContainer {
   padding: 1rem;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}

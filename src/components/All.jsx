@@ -4,7 +4,12 @@ import IncidentCard from "./IncidentCard";
 import IncidentTable from "./IncidentTable";
 
 const All = () => {
-  let statesMap = {};
+  let statesMap = {
+    Open: 0,
+    "In Progress": 0,
+    Resolved: 0,
+    Closed: 0
+  };
 
   const [incidents, setIncidents] = useState(null);
 
@@ -16,7 +21,11 @@ const All = () => {
       const response = await fetch(
         "https://servicenow-ui-coding-challenge-api.netlify.app/.netlify/functions/server/incidents"
       );
-      const incidents = await response.json();
+      const incidentsJson = await response.json();
+
+      const incidents = incidentsJson.filter(incident => {
+        return statesMap[incident.state] || statesMap[incident.state] === 0;
+      });
 
       setIncidents(incidents);
       for (let incident of incidents) {
@@ -26,12 +35,8 @@ const All = () => {
           statesMap[incident.state] = 1;
         }
       }
-      let statesToCheck = ["Open", "In Progress", "Resolved", "Closed"];
-      statesToCheck = statesToCheck.map((stateToCheck) => [
-        stateToCheck,
-        statesMap[stateToCheck],
-      ]);
-      setStates(statesToCheck);
+
+      setStates(Object.entries(statesMap));
     }
     if (!incidents) {
       getIncidents();
@@ -40,15 +45,25 @@ const All = () => {
 
   return (
     <div>
-      <section className="incidentCardsContainer">
-        {states &&
-          states.map((state) => {
-            return (
-              <IncidentCard key={state[0]} label={state[0]} count={state[1]} />
-            );
-          })}
+      <section>
+        <h2>At a Glance</h2>
+        <div className="incidentCardsContainer">
+          {states &&
+            states.map(state => {
+              return (
+                <IncidentCard
+                  key={state[0]}
+                  label={state[0]}
+                  count={state[1]}
+                />
+              );
+            })}
+        </div>
       </section>
-      <section>{incidents && <IncidentTable incidents={incidents} />}</section>
+      <section>
+        <h2>All Incidents</h2>
+        {incidents && <IncidentTable incidents={incidents} />}
+      </section>
     </div>
   );
 };

@@ -9,8 +9,7 @@ import Paper from "@material-ui/core/Paper";
 
 const IncidentTable = ({ incidents }) => {
   return (
-    <TableContainer component={Paper}>
-      <h2>All Incidents</h2>
+    <TableContainer component={Paper} elevation={3}>
       <Table>
         <TableHead>
           <TableRow>
