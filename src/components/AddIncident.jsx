@@ -14,12 +14,15 @@ import { useHistory } from "react-router-dom";
 import "../styles/AddIncident.css";
 
 const AddIncident = () => {
+  // values for our form
   const [priority, setPriority] = useState("");
   const [short_description, setShortDescription] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const history = useHistory();
+
+  // action to call and will redirect after success
   const { addIncident } = useContext(IncidentContext);
+  const history = useHistory();
 
   function submit(e) {
     e.preventDefault();
@@ -36,6 +39,7 @@ const AddIncident = () => {
     addIncident(data);
     history.push("/");
   }
+
   return (
     <section>
       <Button
@@ -96,7 +100,7 @@ const AddIncident = () => {
             Create New Incident
           </Button>
         </form>
-      </Paper>{" "}
+      </Paper>
     </section>
   );
 };

@@ -14,6 +14,9 @@ class IncidentProvider extends Component {
   getIncident = this.getIncident.bind(this);
   addIncident = this.addIncident.bind(this);
 
+  // this function will call the endpoint to retreive all incidents and set them
+  // in our state. Will additionally set our stateMap so we know how many of each
+  // state(Open, In progress, Resolved, Closed) we posess.
   async getAllIncidents() {
     let stateMap = {
       Open: 0,
@@ -21,10 +24,13 @@ class IncidentProvider extends Component {
       Resolved: 0,
       Closed: 0
     };
+
     const response = await fetch(
       "https://servicenow-ui-coding-challenge-api.netlify.app/.netlify/functions/server/incidents"
     );
     const incidentsJson = await response.json();
+
+    // filter out any invalid states
     const incidents = incidentsJson.filter(incident => {
       return stateMap[incident.state] || stateMap[incident.state] === 0;
     });
@@ -42,6 +48,8 @@ class IncidentProvider extends Component {
     });
   }
 
+  // this function will either call the endpoint for the filtered incident state type or if we already have loaded all
+  // incidents then it will filter that list instead of making another endpoint call
   async getFilteredIncidents(incidentFilterType) {
     let filteredIncidents;
     const { incidents } = this.state;
@@ -60,6 +68,8 @@ class IncidentProvider extends Component {
     });
   }
 
+  // this function will either call the endpoint for an indivual incident or if we have already have loaded all
+  // incidents then it will find that incident from our incidents list
   async getIncident(incidentNumber) {
     const { incidents } = this.state;
     let currentIncident = null;
@@ -83,6 +93,7 @@ class IncidentProvider extends Component {
     });
   }
 
+  // this function will call the endpoint to add a new incident and append that result to our current incidents list
   async addIncident(data) {
     const response = await fetch(
       "https://servicenow-ui-coding-challenge-api.netlify.app/.netlify/functions/server/insertIncident",
@@ -101,6 +112,7 @@ class IncidentProvider extends Component {
       incidents: [...this.state.incidents, newIncident.data]
     });
   }
+
   render() {
     const {
       incidents,
@@ -109,6 +121,8 @@ class IncidentProvider extends Component {
       currentIncident
     } = this.state;
     const { children } = this.props;
+
+    // values that will be passed on through context
     const value = {
       incidents,
       filteredIncidents,

@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { IncidentContext } from "../providers/IncidentProvider";
 import Button from "@material-ui/core/Button";
+import Chip from "@material-ui/core/Chip";
+import "../styles/Filtered.css";
 
 const Filtered = () => {
   const { incidentFilterType } = useParams();
@@ -17,6 +19,7 @@ const Filtered = () => {
       getFilteredIncidents(incidentFilterType);
     }
   }, [getFilteredIncidents, incidentFilterType]);
+
   if (!filteredIncidents || filteredIncidents.length === 0) {
     return <p>loading...</p>;
   }
@@ -29,9 +32,10 @@ const Filtered = () => {
       >
         Back
       </Button>
-      <h2>
-        {incidentFilterType} {filteredIncidents.length}
-      </h2>
+      <h1>
+        {incidentFilterType}
+        <Chip className="incidentChip" label={filteredIncidents.length} />
+      </h1>
       <IncidentTable incidents={filteredIncidents} />
     </section>
   );

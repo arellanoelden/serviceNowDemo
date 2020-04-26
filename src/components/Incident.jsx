@@ -21,6 +21,7 @@ const Incident = () => {
   if (!currentIncident || !currentIncident.number) {
     return <div>loading...</div>;
   }
+
   return (
     <section className="incidentContainer">
       <Button
