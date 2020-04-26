@@ -3,7 +3,6 @@ import { IncidentContext } from "../providers/IncidentProvider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import "../styles/Incident.css";
 import { Paper, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
