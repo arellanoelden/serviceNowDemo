@@ -6,11 +6,9 @@ import * as serviceWorker from "./serviceWorker";
 import IncidentProvider from "./providers/IncidentProvider";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <IncidentProvider>
-      <App />
-    </IncidentProvider>
-  </React.StrictMode>,
+  <IncidentProvider>
+    <App />
+  </IncidentProvider>,
   document.getElementById("root")
 );
 
