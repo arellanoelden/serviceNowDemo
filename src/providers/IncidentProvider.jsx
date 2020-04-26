@@ -6,10 +6,12 @@ class IncidentProvider extends Component {
   state = {
     incidents: [],
     filteredIncidents: [],
-    states: []
+    states: [],
+    currentIncident: null
   };
   getAllIncidents = this.getAllIncidents.bind(this);
   getFilteredIncidents = this.getFilteredIncidents.bind(this);
+  getIncident = this.getIncident.bind(this);
   addIncident = this.addIncident.bind(this);
 
   async getAllIncidents() {
@@ -58,6 +60,29 @@ class IncidentProvider extends Component {
     });
   }
 
+  async getIncident(incidentNumber) {
+    const { incidents } = this.state;
+    let currentIncident = null;
+    if (incidents.length > 0) {
+      currentIncident = incidents.find(
+        incident => incident.number === incidentNumber
+      );
+      if (currentIncident) {
+        this.setState({
+          currentIncident
+        });
+        return;
+      }
+    }
+    const response = await fetch(
+      `https://servicenow-ui-coding-challenge-api.netlify.app/.netlify/functions/server/incidentByNumber?number=${incidentNumber}`
+    );
+    currentIncident = await response.json();
+    this.setState({
+      currentIncident
+    });
+  }
+
   async addIncident(data) {
     const response = await fetch(
       "https://servicenow-ui-coding-challenge-api.netlify.app/.netlify/functions/server/insertIncident",
@@ -77,14 +102,21 @@ class IncidentProvider extends Component {
     });
   }
   render() {
-    const { incidents, filteredIncidents, states } = this.state;
+    const {
+      incidents,
+      filteredIncidents,
+      states,
+      currentIncident
+    } = this.state;
     const { children } = this.props;
     const value = {
       incidents,
       filteredIncidents,
       states,
+      currentIncident,
       getAllIncidents: this.getAllIncidents,
       getFilteredIncidents: this.getFilteredIncidents,
+      getIncident: this.getIncident,
       addIncident: this.addIncident
     };
     return (
