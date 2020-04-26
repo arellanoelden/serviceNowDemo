@@ -1,0 +1,10 @@
+.incidentList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.incidentList li strong {
+  margin-right: 1rem;
+}
+
+/*# sourceMappingURL=incident.css.map */

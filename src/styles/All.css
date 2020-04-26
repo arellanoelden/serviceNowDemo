@@ -1,0 +1,33 @@
+.incidentCardsContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+}
+
+@media screen and (min-width: 767px) {
+  .incidentCardsContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (min-width: 992px) {
+  .incidentCardsContainer {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+.incidentCardsContainer a {
+  text-decoration: none;
+  color: black;
+}
+
+.homepageHeaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*# sourceMappingURL=All.css.map */
+/*# sourceMappingURL=All.css.map */
+/*# sourceMappingURL=All.css.map */
+/*# sourceMappingURL=All.css.map */
+
+/*# sourceMappingURL=All.css.map */

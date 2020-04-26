@@ -1,0 +1,23 @@
+.incidentCard {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+  background: #fff;
+}
+
+.incidentCard label {
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid grey;
+}
+
+.incidentCard p {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/*# sourceMappingURL=IncidentCard.css.map */
+
+/*# sourceMappingURL=IncidentCard.css.map */
