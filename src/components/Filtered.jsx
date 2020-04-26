@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import IncidentTable from "./IncidentTable";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { IncidentContext } from "../providers/IncidentProvider";
+import Button from "@material-ui/core/Button";
 
 const Filtered = () => {
   const { incidentFilterType } = useParams();
   const { filteredIncidents, getFilteredIncidents } = useContext(
     IncidentContext
   );
+  const history = useHistory();
+
   useEffect(() => {
     if (incidentFilterType) {
       getFilteredIncidents(incidentFilterType);
@@ -19,7 +22,13 @@ const Filtered = () => {
   }
   return (
     <section>
-      <Link to="/">Back</Link>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => history.push("/")}
+      >
+        Back
+      </Button>
       <h2>
         {incidentFilterType} {filteredIncidents.length}
       </h2>

@@ -6,11 +6,12 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { Link } from "react-router-dom";
 
 const IncidentTable = ({ incidents }) => {
   return (
     <TableContainer component={Paper} elevation={3}>
-      <Table>
+      <Table className="incidentTable">
         <TableHead>
           <TableRow>
             <TableCell>Number</TableCell>
@@ -25,7 +26,11 @@ const IncidentTable = ({ incidents }) => {
           {incidents.map((incident, index) => {
             return (
               <TableRow key={index}>
-                <TableCell>{incident.number}</TableCell>
+                <TableCell>
+                  <Link to={`incident/${incident.number}`}>
+                    {incident.number}
+                  </Link>
+                </TableCell>
                 <TableCell>{incident.priority}</TableCell>
                 <TableCell>{incident.short_description}</TableCell>
                 <TableCell>{incident.category}</TableCell>
