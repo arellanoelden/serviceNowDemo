@@ -10,6 +10,7 @@ class IncidentProvider extends Component {
   };
   getAllIncidents = this.getAllIncidents.bind(this);
   getFilteredIncidents = this.getFilteredIncidents.bind(this);
+  addIncident = this.addIncident.bind(this);
 
   async getAllIncidents() {
     let stateMap = {
@@ -39,17 +40,17 @@ class IncidentProvider extends Component {
     });
   }
 
-  async getFilteredIncidents(filterState) {
+  async getFilteredIncidents(incidentFilterType) {
     let filteredIncidents;
     const { incidents } = this.state;
     if (incidents.length === 0) {
       const response = await fetch(
-        `https://servicenow-ui-coding-challenge-api.netlify.app/.netlify/functions/server/incidentsByState?state=${filterState}`
+        `https://servicenow-ui-coding-challenge-api.netlify.app/.netlify/functions/server/incidentsByState?state=${incidentFilterType}`
       );
       filteredIncidents = await response.json();
     } else {
       filteredIncidents = incidents.filter(
-        incident => incident.state === filterState
+        incident => incident.state === incidentFilterType
       );
     }
     this.setState({
@@ -57,6 +58,24 @@ class IncidentProvider extends Component {
     });
   }
 
+  async addIncident(data) {
+    const response = await fetch(
+      "https://servicenow-ui-coding-challenge-api.netlify.app/.netlify/functions/server/insertIncident",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }
+    );
+    const newIncident = await response.json();
+
+    this.setState({
+      incidents: [...this.state.incidents, newIncident.data]
+    });
+  }
   render() {
     const { incidents, filteredIncidents, states } = this.state;
     const { children } = this.props;
@@ -65,7 +84,8 @@ class IncidentProvider extends Component {
       filteredIncidents,
       states,
       getAllIncidents: this.getAllIncidents,
-      getFilteredIncidents: this.getFilteredIncidents
+      getFilteredIncidents: this.getFilteredIncidents,
+      addIncident: this.addIncident
     };
     return (
       <IncidentContext.Provider value={value}>

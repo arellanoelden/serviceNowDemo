@@ -3,9 +3,12 @@ import "../styles/All.css";
 import IncidentCard from "./IncidentCard";
 import IncidentTable from "./IncidentTable";
 import { IncidentContext } from "../providers/IncidentProvider";
+import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 const All = () => {
   const { incidents, getAllIncidents, states } = useContext(IncidentContext);
+  const history = useHistory();
 
   useEffect(() => {
     if (incidents.length === 0) {
@@ -16,7 +19,16 @@ const All = () => {
   return (
     <div>
       <section>
-        <h2>At a Glance</h2>
+        <div className="homepageHeaderContainer">
+          <h1>At a Glance</h1>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => history.push("/addIncident")}
+          >
+            Add Incident
+          </Button>
+        </div>
         <div className="incidentCardsContainer">
           {states &&
             states.map(state => {
