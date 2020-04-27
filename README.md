@@ -1,68 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## `Run the app with 'yarn start'`
 
-## Available Scripts
+Runs the app in the development mode.
+Open [http://localhost:8082](http://localhost:8082) to view it in the browser.
 
-In the project directory, you can run:
+## `Components`
 
-### `yarn start`
+### `Incident Provider`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This provider handles all of the actual calls to the endpoints. It will handle getting all incidents, incidents by state, incidents by number, and adding an incident. If any future endpoint calls are added in the future such as delete or any other gets involving incidents it should go in this component
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### `All`
 
-### `yarn test`
+This component is simply a container for our homepage and will hold the `IncidentCard` container and ask the provider to get all incidents and use `IncidentTable` to display them
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `AddIncident`
 
-### `yarn build`
+This component has a form that lists out properties to be set for the new attribute(will automatically set the number, created on and state).
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `Filtered`
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Similar to the `All` component but this `Filtered` component will ask the provider for a filtered list of incidents based off of the incident state in the url
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `Incident`
 
-### `yarn eject`
+This component is used to display a single incident in a list. The additional information that this holds in comparison to the details seen when an incident is in the table is the `description` value
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### `IncidentCard`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This is the card component for the incidents where it will have the `label` and `count`. In our case we pass states(Open, closed..) and state numbers(Ex: 5 open cases) to this card component, however all this component cares about is a `label` and a `count` it does not need to be a state passed into it if it is needed in the future for other cases
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### `IncidentTable`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This is the table component used for the default and filtered page. This table will simply take in a list of incidents and display them in the table. It does not care if the list is a filtered list or not as it will simply populate the table with the information it is given
 
-## Learn More
+## `External Tools`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### `Component Library`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This app was largely created(the card component is not built with this library) with the [Material-UI](https://material-ui.com/) React component library. As such this App was built using React as well as sass.
 
-### Code Splitting
+### `Formatter`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+The `prettier` package for formatting was used with this project as well to ensure a consistent coding style.
