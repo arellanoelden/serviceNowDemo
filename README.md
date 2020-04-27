@@ -46,3 +46,13 @@ This app was largely created(the card component is not built with this library) 
 ### `Formatter`
 
 The `prettier` package for formatting was used with this project as well to ensure a consistent coding style.
+
+## Assumptions
+
+- I filtered out invalid states(states not being Open, Closed, Resolved, or In Progress) as I consider those bad data so I hide them from the user.
+
+- For the add functionality I always assign `New` as the state and just use the current time for the `sys_created_on` and `number`
+
+- I went for a design that was mostly the same for mobile and desktop such as the form to just keep things consistent. Others like tables need to be scrollable on mobile to make the text legible
+
+- I developed assuming polyfills would be added for certain features if older browser support was needed(css grid)
