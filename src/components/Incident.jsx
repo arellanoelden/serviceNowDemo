@@ -13,12 +13,15 @@ const Incident = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (currentIncident === null || currentIncident.number !== incidentNumber) {
+    if (
+      currentIncident === null ||
+      (currentIncident.number && currentIncident.number !== incidentNumber)
+    ) {
       getIncident(incidentNumber);
     }
   }, [getIncident, incidentNumber, currentIncident]);
 
-  if (!currentIncident || !currentIncident.number) {
+  if (!currentIncident) {
     return <div>loading...</div>;
   }
 
@@ -36,22 +39,29 @@ const Incident = () => {
         <List className="incidentList">
           <ListItem>
             <strong>Number</strong>
-            {currentIncident.number}
+            {currentIncident.number ? currentIncident.number : "N/A"}
           </ListItem>
           <ListItem>
-            <strong>Priority</strong> {currentIncident.priority}
+            <strong>Priority</strong>{" "}
+            {currentIncident.priority ? currentIncident.priority : "N/A"}
           </ListItem>
           <ListItem>
-            <strong>Description</strong> {currentIncident.description}
+            <strong>Description</strong>{" "}
+            {currentIncident.description ? currentIncident.description : "N/A"}
           </ListItem>
           <ListItem>
-            <strong>Category</strong> {currentIncident.category}
+            <strong>Category</strong>{" "}
+            {currentIncident.category ? currentIncident.category : "N/A"}
           </ListItem>
           <ListItem>
-            <strong>State</strong> {currentIncident.state}
+            <strong>State</strong>{" "}
+            {currentIncident.state ? currentIncident.state : "N/A"}
           </ListItem>
           <ListItem>
-            <strong>Created</strong> {currentIncident.sys_created_on}
+            <strong>Created</strong>{" "}
+            {currentIncident.sys_created_on
+              ? currentIncident.sys_created_on
+              : "N/A"}
           </ListItem>
         </List>
       </Paper>

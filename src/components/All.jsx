@@ -11,7 +11,7 @@ const All = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (incidents.length === 0) {
+    if (!incidents) {
       getAllIncidents();
     }
   }, [incidents, getAllIncidents, states]);
@@ -30,21 +30,22 @@ const All = () => {
           </Button>
         </div>
         <div className="incidentCardsContainer">
-          {states &&
-            states.map(state => {
-              return (
-                <IncidentCard
-                  key={state[0]}
-                  label={state[0]}
-                  count={state[1]}
-                />
-              );
-            })}
+          {states
+            ? states.map(state => {
+                return (
+                  <IncidentCard
+                    key={state[0]}
+                    label={state[0]}
+                    count={state[1]}
+                  />
+                );
+              })
+            : "loading..."}
         </div>
       </section>
       <section>
         <h2>All Incidents</h2>
-        {incidents && <IncidentTable incidents={incidents} />}
+        {incidents ? <IncidentTable incidents={incidents} /> : "loading..."}
       </section>
     </div>
   );

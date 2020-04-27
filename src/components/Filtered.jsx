@@ -15,14 +15,15 @@ const Filtered = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (incidentFilterType) {
+    if (incidentFilterType && !filteredIncidents) {
       getFilteredIncidents(incidentFilterType);
     }
-  }, [getFilteredIncidents, incidentFilterType]);
+  }, [getFilteredIncidents, incidentFilterType, filteredIncidents]);
 
-  if (!filteredIncidents || filteredIncidents.length === 0) {
+  if (!filteredIncidents) {
     return <p>loading...</p>;
   }
+
   return (
     <section>
       <Button

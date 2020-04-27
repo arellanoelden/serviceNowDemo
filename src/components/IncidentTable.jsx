@@ -9,6 +9,29 @@ import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 
 const IncidentTable = ({ incidents }) => {
+  if (!incidents) {
+    return (
+      <TableContainer component={Paper} elevation={3}>
+        <Table className="incidentTable">
+          <TableHead>
+            <TableRow>
+              <TableCell>Number</TableCell>
+              <TableCell>Priority</TableCell>
+              <TableCell>Short description</TableCell>
+              <TableCell>Category</TableCell>
+              <TableCell>State</TableCell>
+              <TableCell>Created</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>...</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }
   return (
     <TableContainer component={Paper} elevation={3}>
       <Table className="incidentTable">
@@ -23,22 +46,28 @@ const IncidentTable = ({ incidents }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {incidents.map((incident, index) => {
-            return (
-              <TableRow key={index}>
-                <TableCell>
-                  <Link to={`incident/${incident.number}`}>
-                    {incident.number}
-                  </Link>
-                </TableCell>
-                <TableCell>{incident.priority}</TableCell>
-                <TableCell>{incident.short_description}</TableCell>
-                <TableCell>{incident.category}</TableCell>
-                <TableCell>{incident.state}</TableCell>
-                <TableCell>{incident.sys_created_on}</TableCell>
-              </TableRow>
-            );
-          })}
+          {incidents.length > 0 ? (
+            incidents.map((incident, index) => {
+              return (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Link to={`incident/${incident.number}`}>
+                      {incident.number}
+                    </Link>
+                  </TableCell>
+                  <TableCell>{incident.priority}</TableCell>
+                  <TableCell>{incident.short_description}</TableCell>
+                  <TableCell>{incident.category}</TableCell>
+                  <TableCell>{incident.state}</TableCell>
+                  <TableCell>{incident.sys_created_on}</TableCell>
+                </TableRow>
+              );
+            })
+          ) : (
+            <TableRow>
+              <TableCell>No results found</TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>

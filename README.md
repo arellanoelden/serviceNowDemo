@@ -33,6 +33,10 @@ This is the card component for the incidents where it will have the `label` and 
 
 This is the table component used for the default and filtered page. This table will simply take in a list of incidents and display them in the table. It does not care if the list is a filtered list or not as it will simply populate the table with the information it is given
 
+### `Error`
+
+General error page to show if endpoints through an error. Does not have context for what the error was just an error page to show the user
+
 ## `External Tools`
 
 ### `Component Library`
